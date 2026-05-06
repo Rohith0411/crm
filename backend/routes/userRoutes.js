@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 
-// ✅ GET ALL USERS (for dropdown)
+//  GET ALL USERS (for dropdown)
 router.get("/", async (req, res) => {
   try {
     const users = await User.find().select("name email");

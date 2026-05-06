@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext } from "react"; //to get data from authcontext
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext"; //token store 
 
 export default function ProtectedRoute({ children }) {
   const { token } = useContext(AuthContext);
 
-  if (!token) return <Navigate to="/" />;
+  if (!token) return <Navigate to="/" replace />;
 
   return children;
 }

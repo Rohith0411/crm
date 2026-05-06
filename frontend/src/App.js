@@ -7,7 +7,7 @@ import LeadForm from "./pages/LeadForm";
 
 import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
-import CompanyForm from "./pages/CompanyForm"; // ✅ added
+import CompanyForm from "./pages/CompanyForm";
 
 import Tasks from "./pages/Tasks";
 
@@ -21,10 +21,10 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* 🔓 PUBLIC ROUTE */}
+        {/* PUBLIC ROUTE */}
         <Route path="/" element={<Login />} />
 
-        {/* 🔐 PROTECTED ROUTES */}
+        {/* PROTECTED ROUTES */}
 
         <Route
           path="/dashboard"
@@ -70,7 +70,7 @@ function App() {
           }
         />
 
-        {/* 🏢 COMPANIES MODULE */}
+        {/*  COMPANIES MODULE */}
 
         {/* Companies List */}
         <Route

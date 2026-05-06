@@ -5,7 +5,7 @@ const Task = require("../models/Task");
 const auth = require("../middleware/authMiddleware");
 
 
-// ✅ GET ALL TASKS
+//  GET ALL TASKS
 router.get("/", auth, async (req, res) => {
   try {
     const tasks = await Task.find()
@@ -21,7 +21,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 
-// ✅ CREATE TASK
+//  CREATE TASK
 router.post("/", auth, async (req, res) => {
   try {
     const task = new Task(req.body);
@@ -36,27 +36,27 @@ router.post("/", auth, async (req, res) => {
 });
 
 
-// ✅ UPDATE STATUS (ONLY ASSIGNED USER)
+//  UPDATE STATUS (ONLY ASSIGNED USER)
 router.put("/:id", auth, async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
-    // ❌ task not found
+    //  task not found
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // ❌ assignedTo missing
+    //  assignedTo missing
     if (!task.assignedTo) {
       return res.status(400).json({ message: "No assigned user" });
     }
 
-    // ❌ user not logged in properly
+    //  user not logged in properly
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // 🔥 restriction
+    //  restriction
     if (task.assignedTo.toString() !== req.user.id) {
       return res.status(403).json({
         message: "Not allowed to update this task"

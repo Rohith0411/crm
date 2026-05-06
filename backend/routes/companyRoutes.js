@@ -5,7 +5,7 @@ const Company = require("../models/Company");
 const Lead = require("../models/Lead");
 const auth = require("../middleware/authMiddleware");
 
-// ✅ GET ALL COMPANIES
+//  GET ALL COMPANIES
 router.get("/", auth, async (req, res) => {
   try {
     const companies = await Company.find();
@@ -15,7 +15,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// ✅ GET COMPANY WITH LEADS
+//  GET COMPANY WITH LEADS
 router.get("/:id", auth, async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
@@ -35,7 +35,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-// ✅ CREATE COMPANY
+//  CREATE COMPANY
 router.post("/", auth, async (req, res) => {
   try {
     const { name, industry, location } = req.body;
@@ -53,7 +53,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// ✅ UPDATE COMPANY
+//  UPDATE COMPANY
 router.put("/:id", auth, async (req, res) => {
   try {
     const updated = await Company.findByIdAndUpdate(
@@ -72,7 +72,7 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-// ✅ DELETE COMPANY
+//  DELETE COMPANY
 router.delete("/:id", auth, async (req, res) => {
   try {
     const deleted = await Company.findByIdAndDelete(req.params.id);

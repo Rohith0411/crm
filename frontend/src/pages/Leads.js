@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../api";
 import {
   Box,
@@ -26,21 +26,22 @@ export default function Leads() {
 
   const navigate = useNavigate();
 
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
     try {
       const res = await API.get(
         `/leads?search=${search}&status=${status}&page=${page}`
       );
+
       setLeads(res.data.leads);
       setTotalPages(res.data.totalPages);
-    } catch {
+    } catch (error) {
       alert("Error loading leads");
     }
-  };
+  }, [search, status, page]);
 
   useEffect(() => {
     fetchLeads();
-  }, [search, status, page]);
+  }, [fetchLeads]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this lead?")) return;
@@ -48,7 +49,7 @@ export default function Leads() {
     try {
       await API.delete(`/leads/${id}`);
       fetchLeads();
-    } catch {
+    } catch (error) {
       alert("Delete failed");
     }
   };
@@ -59,7 +60,6 @@ export default function Leads() {
         Leads
       </Typography>
 
-      {/* TOP BAR */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -68,7 +68,6 @@ export default function Leads() {
         gap={2}
         mb={3}
       >
-        {/* LEFT SIDE */}
         <Box display="flex" gap={2}>
           <TextField
             label="Search"
@@ -93,7 +92,6 @@ export default function Leads() {
           </TextField>
         </Box>
 
-        {/* ADD BUTTON */}
         <Button
           variant="contained"
           onClick={() => navigate("/add-lead")}
@@ -102,7 +100,6 @@ export default function Leads() {
         </Button>
       </Box>
 
-      {/* TABLE */}
       <TableContainer component={Paper} sx={{ borderRadius: 2 }}>
         <Table>
           <TableHead>
@@ -156,7 +153,6 @@ export default function Leads() {
         </Table>
       </TableContainer>
 
-      {/* PAGINATION */}
       <Box mt={3} display="flex" justifyContent="center">
         <Pagination
           count={totalPages}
